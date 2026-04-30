@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${site.language ?: 'zh'}">
+<head th:replace="~{_layout :: head(${tag.spec.displayName} + ' - ' + ${site.title}, false)}"></head>
+<body>
+<div id="app">
+  <div th:replace="~{_layout :: mobile}"></div>
+  <div id="content">
+    <div id="streamContainer" class="stream-container">
+      <div class="post-list-container post-list-container-no-background">
+        <a class="a-block">
+          <div class="post-item-wrapper post-item-wrapper-no-hover">
+            <div class="post-item post-item-no-gaps">
+              <div class="post-item-info-wrapper">
+                <div class="post-item-title post-item-title-small" th:text="${tag.spec.displayName}"></div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <th:block th:each="post : ${posts.items}">
+          <a th:href="${post.status.permalink}" class="a-block">
+            <div class="post-item-wrapper">
+              <div class="post-item post-item-no-divider">
+                <div class="post-item-info-wrapper">
+                  <div class="post-item-title" th:text="${post.spec.title}"></div>
+                  <div class="post-item-meta">
+                    <time th:text="${#temporals.format(post.spec.publishTime, 'yyyy-MM-dd')}"></time>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </th:block>
+        <div th:if="${posts.hasPrevious() || posts.hasNext()}" class="pagination">
+          <a class="pagination-action" th:if="${posts.hasPrevious()}" th:href="${posts.prevUrl}" style="opacity:1">
+            <i class="material-icons pagination-action-icon">chevron_left</i>
+          </a>
+          <a class="pagination-action" th:unless="${posts.hasPrevious()}" style="opacity:0">
+            <i class="material-icons pagination-action-icon">chevron_left</i>
+          </a>
+          <div class="pagination-indicator">
+            <span th:text="${posts.page} + '/' + ${posts.totalPages}"></span>
+          </div>
+          <a class="pagination-action" th:if="${posts.hasNext()}" th:href="${posts.nextUrl}" style="opacity:1">
+            <i class="material-icons pagination-action-icon">chevron_right</i>
+          </a>
+          <a class="pagination-action" th:unless="${posts.hasNext()}" style="opacity:0">
+            <i class="material-icons pagination-action-icon">chevron_right</i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:replace="~{_layout :: sidebar}"></div></div>
+<script th:src="@{/themes/theme-diary/assets/js/journal.js}"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${site.language ?: 'zh'}">
+<head th:fragment="head(title, toc)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  <title th:text="${title}"></title>
+  <meta name="description" th:content="${site.subtitle ?: ''}">
+  <link rel="icon" th:if="${site.favicon}" th:href="${site.favicon}">
+  <link rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/material-icons.css}">
+  <link th:if="${#bools.isTrue(theme.config.disableDarkmode)}" rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/journal.css}">
+  <link th:unless="${#bools.isTrue(theme.config.disableDarkmode)}" rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/dark-mode.css}">
+  <link rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/fixes.css}">
+  <script th:if="${toc}" th:src="@{/themes/theme-diary/assets/js/toc.js}" defer></script>
+  <!-- KaTeX -->
+  <th:block th:if="${#bools.isTrue(theme.config.enableLaTeX)}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false}
+          ],
+          throwOnError: false
+        });
+      });
+    </script>
+  </th:block>
+</head>
+
+<div th:fragment="sidebar">
+  <div id="sideContainer" class="side-container">
+    <a class="a-block nav-head" th:href="@{/}">
+      <div class="nav-title" th:text="${site.title}"></div>
+      <div class="nav-subtitle" th:if="${site.subtitle}" th:text="${site.subtitle}"></div>
+    </a>
+    <div class="nav-link-list">
+      <th:block th:with="menu = ${menuFinder.getPrimary()}">
+        <th:block th:if="${menu != null}" th:each="item : ${menu.menuItems}">
+          <a class="a-block nav-link-item"
+             th:href="${item.status.href}"
+             th:text="${item.status.displayName}"
+             th:target="${item.spec.target?.value}"></a>
+        </th:block>
+      </th:block>
+    </div>
+    <div class="nav-footer">
+      Theme ported from <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a><br>
+      &copy; <span th:text="${site.title}"></span>
+    </div>
+  </div>
+</div>
+
+<div th:fragment="mobile">
+  <!-- mobile nav -->
+  <div class="single-column-nav-container">
+    <nav id="navBar" class="navbar">
+      <div class="nav-content">
+        <div class="nav-icon-group">
+          <button id="nav_dropdown_btn" class="nav-dropdown-toggle">
+            <i class="material-icons nav-icon">menu</i>
+          </button>
+        </div>
+        <a id="navTitle" class="navbar-brand" th:href="@{/}" th:text="${site.title}"></a>
+      </div>
+      <div id="navBackground" class="nav-background"></div>
+    </nav>
+  </div>
+  <!-- mobile header -->
+  <div id="pageHead" class="single-column-header-container">
+    <a th:href="@{/}" class="a-block">
+      <div class="single-column-header-title" th:text="${site.title}"></div>
+      <div class="single-column-header-subtitle" th:if="${site.subtitle}" th:text="${site.subtitle}"></div>
+    </a>
+  </div>
+  <!-- drawer -->
+  <div id="drawer" class="single-column-drawer-container">
+    <div class="drawer-content">
+      <div class="drawer-menu">
+        <th:block th:with="menu = ${menuFinder.getPrimary()}">
+          <th:block th:if="${menu != null}" th:each="item : ${menu.menuItems}">
+            <a class="drawer-menu-item a-block"
+               th:href="${item.status.href}"
+               th:text="${item.status.displayName}"
+               th:target="${item.spec.target?.value}"></a>
+          </th:block>
+        </th:block>
+        <div id="mobile-toc" class="toc" style="display:none">
+          <div class="toc-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="drawer-mask"></div>
+</div>
+</html>

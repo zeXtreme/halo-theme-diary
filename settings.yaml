@@ -1,0 +1,21 @@
+apiVersion: v1alpha1
+kind: Setting
+metadata:
+  name: theme-diary-setting
+spec:
+  forms:
+    - group: basic
+      label: 基本设置
+      formSchema:
+        - $formkit: checkbox
+          name: disableDarkmode
+          label: 禁用暗黑模式
+          value: false
+        - $formkit: checkbox
+          name: enableReadingTime
+          label: 显示阅读时间
+          value: true
+        - $formkit: checkbox
+          name: enableLaTeX
+          label: 启用 LaTeX 支持
+          value: false

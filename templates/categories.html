@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${site.language ?: 'zh'}">
+<head th:replace="~{_layout :: head('分类 - ' + ${site.title}, false)}"></head>
+<body>
+<div id="app">
+  <div th:replace="~{_layout :: mobile}"></div>
+  <div id="content">
+    <div id="streamContainer" class="stream-container">
+      <div class="post-list-container post-list-container-shadow">
+        <a class="a-block">
+          <div class="post-item-wrapper post-item-wrapper-no-hover">
+            <div class="post-item post-item-no-gaps">
+              <div class="post-item-info-wrapper">
+                <div class="post-item-title post-item-title-small">分类</div>
+              </div>
+            </div>
+          </div>
+        </a>
+        <div class="tags">
+          <div class="tag" th:each="cat : ${categories}">
+            <a th:href="${cat.status.permalink}" class="btn btn-outline-secondary position-relative rounded-pill">
+              <span th:text="${cat.spec.displayName}"></span>
+              <span class="badge" th:text="${cat.postCount}"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:replace="~{_layout :: sidebar}"></div></div>
+<script th:src="@{/themes/theme-diary/assets/js/journal.js}"></script>
+</body>
+</html>

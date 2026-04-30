@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${site.language ?: 'zh'}">
+<head th:replace="~{_layout :: head(${singlePage.spec.title} + ' - ' + ${site.title}, false)}"></head>
+<body>
+<div id="app">
+  <div th:replace="~{_layout :: mobile}"></div>
+  <div id="content">
+    <div id="streamContainer" class="stream-container">
+      <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+          <div class="post-head-wrapper-text-only">
+            <div class="post-title" th:text="${singlePage.spec.title}"></div>
+          </div>
+          <div class="post-body-wrapper">
+            <div class="post-body" th:utext="${singlePage.content.content}"></div>
+          </div>
+          <div th:if="${singlePage.spec.allowComment}" class="post-comment-wrapper">
+            <halo:comment group="content.halo.run" kind="SinglePage" th:attr="name=${singlePage.metadata.name}"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:replace="~{_layout :: sidebar}"></div>
+  <div id="extraContainer" class="extra-container">
+    <div class="pagination">
+      <a id="globalBackToTop" class="pagination-action" href="#top" style="visibility:hidden">
+        <i class="material-icons pagination-action-icon">keyboard_arrow_up</i>
+      </a>
+    </div>
+  </div>
+</div>
+<script th:src="@{/themes/theme-diary/assets/js/journal.js}"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${site.language ?: 'zh'}">
+<head th:replace="~{_layout :: head(${post.spec.title + ' - ' + site.title}, true)}"></head>
+<body>
+<div id="app">
+  <div th:replace="~{_layout :: mobile}"></div>
+
+  <div id="content">
+    <div id="streamContainer" class="stream-container">
+      <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+          <!-- header -->
+          <div th:class="${post.spec.cover} ? 'post-head-wrapper' : 'post-head-wrapper-text-only'"
+               th:style="${post.spec.cover} ? 'background-image: url(' + ${post.spec.cover} + ')' : ''">
+            <div class="post-title">
+              <span th:text="${post.spec.title}"></span>
+              <div th:if="${post.spec.excerpt?.raw}" class="post-subtitle" th:text="${post.spec.excerpt.raw}"></div>
+              <div class="post-meta">
+                <time th:text="${#temporals.format(post.spec.publishTime, 'yyyy-MM-dd HH:mm')}"></time>
+                <th:block th:each="cat : ${post.categories}">
+                  <i class="material-icons">folder</i>
+                  <a th:href="${cat.status.permalink}" th:text="${cat.spec.displayName}"></a>
+                </th:block>
+                <th:block th:each="tag : ${post.tags}">
+                  <i class="material-icons">label</i>
+                  <a th:href="${tag.status.permalink}" th:text="${tag.spec.displayName}"></a>
+                </th:block>
+              </div>
+            </div>
+          </div>
+
+          <!-- body -->
+          <div class="post-body-wrapper">
+            <div class="post-body" th:utext="${post.content.content}"></div>
+          </div>
+
+          <!-- prev/next -->
+          <nav class="post-pagination" th:with="cursor = ${postFinder.cursor(post.metadata.name)}">
+            <a th:if="${cursor.hasNext()}" class="newer-posts" th:href="${cursor.next.status.permalink}">
+              下回<br><span th:text="${cursor.next.spec.title}"></span>
+            </a>
+            <span th:unless="${cursor.hasNext()}" class="newer-posts">已经到头啦。</span>
+            <a th:if="${cursor.hasPrevious()}" class="older-posts" th:href="${cursor.previous.status.permalink}">
+              上回<br><span th:text="${cursor.previous.spec.title}"></span>
+            </a>
+            <span th:unless="${cursor.hasPrevious()}" class="older-posts">这是最旧的文章了。</span>
+          </nav>
+
+          <!-- comments -->
+          <div th:if="${post.spec.allowComment}" class="post-comment-wrapper">
+            <halo:comment group="content.halo.run" kind="Post" th:attr="name=${post.metadata.name}"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="~{_layout :: sidebar}"></div>
+
+  <!-- TOC extrabar -->
+  <div id="extraContainer" class="extra-container">
+    <div id="toc" class="toc">
+      <div class="toc-content"></div>
+    </div>
+    <div class="pagination">
+      <a id="globalBackToTop" class="pagination-action" href="#top" style="visibility:hidden">
+        <i class="material-icons pagination-action-icon">keyboard_arrow_up</i>
+      </a>
+    </div>
+  </div>
+</div>
+<script th:src="@{/themes/theme-diary/assets/js/journal.js}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var headings = document.querySelectorAll(".post-body h1,.post-body h2,.post-body h3,.post-body h4");
+  if (headings.length === 0) {
+    document.getElementById("extraContainer").style.display="none";
+    return;
+  }
+  var ul = document.createElement("ul");
+  headings.forEach(function(h) {
+    if (!h.id) h.id = h.textContent.trim().replace(/\s+/g,"-");
+    var li = document.createElement("li");
+    li.className = "nav-" + h.id;
+    var a = document.createElement("a");
+    a.href = "#" + h.id;
+    a.textContent = h.textContent;
+    a.style.paddingLeft = (parseInt(h.tagName[1]) - 1) * 12 + "px";
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+  var desktopToc = document.querySelector("#toc .toc-content");
+  if (desktopToc) desktopToc.appendChild(ul.cloneNode(true));
+  var mobileToc = document.querySelector("#mobile-toc .toc-content");
+  if (mobileToc) {
+    mobileToc.appendChild(ul.cloneNode(true));
+    document.getElementById("mobile-toc").style.display = "block";
+  }
+  window.addEventListener("scroll", spy);
+});
+</script>
+</body>
+</html>
