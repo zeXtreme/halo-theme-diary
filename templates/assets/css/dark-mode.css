@@ -72,7 +72,6 @@ table {
 }
 
 button {
-  cursor: hand;
   cursor: pointer;
 }
 
@@ -317,7 +316,6 @@ a:hover {
     margin-bottom: 10px;
     border-right: 2px solid transparent;
     padding: 8px 30px 8px 30px;
-    cursor: hand;
     cursor: pointer;
     transition: all 0.2s linear;
     color: black;
@@ -377,7 +375,6 @@ a:hover {
 }
 .side-container .nav-head {
   padding: 30px 28px 30px 20px;
-  cursor: hand;
   cursor: pointer;
   margin-bottom: 10px;
   color: black;
@@ -411,7 +408,6 @@ a:hover {
   margin-bottom: 10px;
   border-right: 2px solid transparent;
   padding: 8px 28px 8px 30px;
-  cursor: hand;
   cursor: pointer;
   color: black;
 }
@@ -485,7 +481,6 @@ a:hover {
   align-items: center;
   justify-items: center;
   width: 64px;
-  cursor: hand;
   cursor: pointer;
   padding: 15px 0;
 }
@@ -507,20 +502,6 @@ a:hover {
   .extra-container {
     display: none;
   }
-}
-
-.pagination-bar-container {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 25%;
-  text-align: right;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  padding: 20px 0;
-  overflow: scroll;
-  display: flex;
-  flex-direction: column;
 }
 
 .stream-container {
@@ -551,7 +532,6 @@ a:hover {
 }
 .stream-container .post-list-container .post-item-wrapper,
 .stream-container .post-list-container > * .post-item-wrapper {
-  cursor: hand;
   cursor: pointer;
 }
 .stream-container .post-list-container .post-item-wrapper .post-item,
@@ -845,11 +825,7 @@ a:hover {
     font-size: 16px;
   }
 }
-.stream-container .post .post-body-wrapper .post-body {
-  /*
-  Table of Contents
-  */
-}
+
 .stream-container .post .post-pagination {
   padding: 20px 35px;
   width: 100%;
@@ -932,10 +908,6 @@ a:hover {
     margin-left: 0;
     margin-right: 0;
   }
-  .toc,
-  .toc * {
-    /*font-size: $single-column-toc-size;*/
-  }
   .toc .toc-content {
     padding: 10px;
   }
@@ -976,7 +948,6 @@ a:hover {
     align-items: center;
     justify-items: center;
     width: 64px;
-    cursor: hand;
     cursor: pointer;
     padding: 15px 0;
   }
@@ -1043,6 +1014,9 @@ mjx-container {
 
 body.night {
   background: #212121;
+}
+body.night * {
+  color: rgb(229.5, 229.5, 229.5);
 }
 body.night :root {
   --color_555: #ccc;
@@ -1124,12 +1098,10 @@ body.night .stream-container .post {
     background: #212121;
   }
 }
-body.night .stream-container .post .post-pagination a:not([href]) {
-  color: rgb(229.5, 229.5, 229.5);
-}
 body.night .stream-container .post .post-comment-wrapper * {
   color: rgb(229.5, 229.5, 229.5);
 }
+
 body.night .stream-container .post-list-container {
   background: #282828;
 }
@@ -1258,4 +1230,13 @@ body.night .gsc-control-searchbox-only table * {
 }
 body.night .tags .tag a {
   color: white;
+}
+body.night .stream-container .post .post-pagination a {
+  color: rgb(150, 190, 240) !important;
+}
+body.night .stream-container .post .post-pagination span {
+  color: rgb(200, 200, 200) !important;
+}
+body.night .post-comment-wrapper {
+  color-scheme: dark;
 }

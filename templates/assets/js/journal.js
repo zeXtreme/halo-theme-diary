@@ -114,14 +114,6 @@ var debounce = function (func, wait, options) {
     lastArgs = lastCallTime = lastThis = timerId = undefined;
   }
 
-  function flush() {
-    return timerId === undefined ? result : trailingEdge(Date.now());
-  }
-
-  function pending() {
-    return timerId !== undefined;
-  }
-
   function debounced(...args) {
     const time = Date.now();
     const isInvoking = shouldInvoke(time);
@@ -146,8 +138,6 @@ var debounce = function (func, wait, options) {
     return result;
   }
   debounced.cancel = cancel;
-  debounced.flush = flush;
-  debounced.pending = pending;
   return debounced;
 };
 
@@ -233,12 +223,14 @@ var toggleDarkMode = function () {
   if (isDarkMode == true) {
     document.cookie = "night=1;path=/";
     document.body.classList.add("night");
+    document.body.classList.add("dark");
     icon.innerText = "light_mode";
     icon2.innerText = "light_mode";
     setGiscusTheme("dark");
   } else {
     document.cookie = "night=0;path=/";
     document.body.classList.remove("night");
+    document.body.classList.remove("dark");
     icon.innerText = "dark_mode";
     icon2.innerText = "dark_mode";
     setGiscusTheme("light");
