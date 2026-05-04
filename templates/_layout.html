@@ -10,12 +10,12 @@
   <meta property="og:type" content="website">
   <meta th:if="${site.favicon}" property="og:image" th:content="${site.favicon}">
   <link rel="icon" th:if="${site.favicon}" th:href="${site.favicon}">
-  <link rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/bootstrap.min.css}">
-  <link rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/material-icons.css}">
-  <link th:if="${#bools.isTrue(theme.config.disableDarkmode)}" rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/journal.css}">
-  <link th:unless="${#bools.isTrue(theme.config.disableDarkmode)}" rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/dark-mode.css}">
-  <link rel="stylesheet" th:href="@{/themes/theme-diary/assets/css/fixes.css}">
-  <script th:if="${toc}" th:src="@{/themes/theme-diary/assets/js/toc.js}" defer></script>
+  <link rel="stylesheet" th:href="@{/themes/halo-theme-diary/assets/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/themes/halo-theme-diary/assets/css/material-icons.css}">
+  <link th:if="${#bools.isTrue(theme.config.disableDarkmode)}" rel="stylesheet" th:href="@{/themes/halo-theme-diary/assets/css/journal.css}">
+  <link th:unless="${#bools.isTrue(theme.config.disableDarkmode)}" rel="stylesheet" th:href="@{/themes/halo-theme-diary/assets/css/dark-mode.css}">
+  <link rel="stylesheet" th:href="@{/themes/halo-theme-diary/assets/css/fixes.css}">
+  <script th:if="${toc}" th:src="@{/themes/halo-theme-diary/assets/js/toc.js}" defer></script>
   <!-- KaTeX -->
   <th:block th:if="${#bools.isTrue(theme.config.enableLaTeX)}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
