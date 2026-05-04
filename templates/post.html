@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
     mobileToc.appendChild(ul.cloneNode(true));
     document.getElementById("mobile-toc").style.display = "block";
   }
-  window.addEventListener("scroll", spy);
+  // spy is called via handleScroll in journal.js (already debounced)
 });
 </script>
 </body>

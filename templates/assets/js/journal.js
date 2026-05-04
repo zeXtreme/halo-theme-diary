@@ -8,7 +8,7 @@ var debounce = function (func, wait, options) {
 
   // Bypass `requestAnimationFrame` by explicitly setting `wait=0`.
   const useRAF =
-    !wait && wait !== 0 && typeof root.requestAnimationFrame === "function";
+    !wait && wait !== 0 && typeof window.requestAnimationFrame === "function";
 
   if (typeof func !== "function") {
     throw new TypeError("Expected a function");

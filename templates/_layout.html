@@ -52,7 +52,7 @@
       </th:block>
     </div>
     <div class="nav-footer">
-      <button id="darkModeToggleButton" class="nav-link-item" style="background:none;border:none;cursor:pointer;padding:0;width:100%;text-align:right">
+      <button th:unless="${#bools.isTrue(theme.config.disableDarkmode)}" id="darkModeToggleButton" class="nav-link-item" style="background:none;border:none;cursor:pointer;padding:0;width:100%;text-align:right">
         <i id="darkModeToggleIcon" class="material-icons">dark_mode</i>
       </button>
       Theme ported from <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a><br>
@@ -98,7 +98,7 @@
         <div id="mobile-toc" class="toc" style="display:none">
           <div class="toc-content"></div>
         </div>
-        <a id="darkModeToggleButton2" class="drawer-menu-item a-block" style="cursor:pointer">
+        <a th:unless="${#bools.isTrue(theme.config.disableDarkmode)}" id="darkModeToggleButton2" class="drawer-menu-item a-block" style="cursor:pointer">
           <i id="darkModeToggleIcon2" class="material-icons">dark_mode</i>
         </a>
       </div>
