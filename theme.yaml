@@ -4,7 +4,7 @@ metadata:
   name: halo-theme-diary
 spec:
   displayName: Diary
-  version: 1.0.0
+  version: 1.0.1
   requires: ">=2.0.0"
   author:
     name: amazingrise

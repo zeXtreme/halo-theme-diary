@@ -52,6 +52,9 @@
       </th:block>
     </div>
     <div class="nav-footer">
+      <button onclick="window.SearchWidget?.open()" class="nav-link-item" style="background:none;border:none;cursor:pointer;padding:0;width:100%;text-align:right">
+        <i class="material-icons">search</i>
+      </button>
       <button th:unless="${#bools.isTrue(theme.config.disableDarkmode)}" id="darkModeToggleButton" class="nav-link-item" style="background:none;border:none;cursor:pointer;padding:0;width:100%;text-align:right">
         <i id="darkModeToggleIcon" class="material-icons">dark_mode</i>
       </button>
@@ -98,6 +101,9 @@
         <div id="mobile-toc" class="toc" style="display:none">
           <div class="toc-content"></div>
         </div>
+        <a onclick="window.SearchWidget?.open();return false;" href="#" class="drawer-menu-item a-block">
+          <i class="material-icons">search</i>
+        </a>
         <a th:unless="${#bools.isTrue(theme.config.disableDarkmode)}" id="darkModeToggleButton2" class="drawer-menu-item a-block" style="cursor:pointer">
           <i id="darkModeToggleIcon2" class="material-icons">dark_mode</i>
         </a>
