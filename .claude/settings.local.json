@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:docs.halo.run)",
-      "Bash(xargs sed *)"
+      "Bash(xargs sed *)",
+      "WebFetch(domain:www.halo.run)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
